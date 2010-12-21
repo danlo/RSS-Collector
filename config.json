@@ -1,0 +1,10 @@
+{
+    "redis": { 
+        "host": "127.0.0.1", 
+        "port": 6379
+    },
+    "channel": "dlotest",
+    "history_key": "dlotest_history",
+    "history_duration": 3600,
+    "history_max_count": 30
+}
