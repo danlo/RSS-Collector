@@ -19,18 +19,10 @@ Data Structures:
   The history_key is an array of "history_max_count" items.
 
 A message is a JSON array composed of the following components:
+  See lib/message.js for message structure
 
-  command -> Internal method to communicate with the stats collector and associated listeners
-    QUIT -> ask everything to quit
-    FLUSH -> purge the history, purge the lists
-
-  data -> a block of data, again JSON formated
-
-  automated -> indicates that this is a machine produced message, a possible filter
-
-  category -> the name of the category this message belongs to
-  
 SYSTEM REQUIREMENTS:
   node.js     @2.5    http://www.nodejs.org
   redis       @2.0    http://redis.io/
+  nodeunit            - testing framework
 

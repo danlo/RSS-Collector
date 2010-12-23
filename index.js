@@ -12,7 +12,7 @@ try {
   console.log("File /config.json not loadable");
 }
 
-// make sure we have a method
+// lets start the modules we need to start
 if ( process.argv[2] in APP_MODULES ) {
     console.log('Running module:' + process.argv[2])
     console.log('arguments:' + process.argv.slice(3))
