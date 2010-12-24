@@ -1,15 +1,6 @@
 var message = require('lib/message.js');
 var util = require('util');
-
-pp = function(item, string) {
-    var util = require('util');
-
-    if ( string ) {
-        util.debug(string + ' ' + util.inspect(item));
-    } else {
-        util.debug(util.inspect(item));
-    }
-};
+var pp = require('lib/util.js').pp;
 
 function create_message(obj) {
     var msg = new message.Message();
