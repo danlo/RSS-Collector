@@ -9,9 +9,10 @@ provide the system with a way to talk to developers... sort of via commonly read
 feeds.  You could read this on your cell phone!
 
 The following methods of communication are to be accepted
-* Via Redis directly: pub-sub
-* Via HTTP POST/GET
-* More?
+
+        * Via Redis directly: pub-sub
+        * Via HTTP POST/GET
+        * More?
 
 Data Structures:
 ----------------
