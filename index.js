@@ -15,7 +15,7 @@ try {
 // lets start the modules we need to start
 if ( process.argv[2] in APP_MODULES ) {
     console.log('Running module:' + process.argv[2])
-    console.log('arguments:' + process.argv.slice(3))
+    console.log('Arguments:' + process.argv.slice(3))
     var APP = APP_MODULES[process.argv[2]]
     APP.config = config
     APP.run(process.argv.slice(3))
