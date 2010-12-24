@@ -8,6 +8,7 @@ function create_message(obj) {
     msg.data = 'WOOT';
     msg.automated = false;
     msg.category = 'test';
+    msg.eventDate = new Date(100);
 
     if ( obj ) {
         for ( var i in obj ) {
@@ -22,7 +23,7 @@ function create_message(obj) {
 
 exports.factory = function(test) {
     var msg = create_message({ test: 'test'});
-
+    
     // test is_message_data()
     test.equal(msg.test, 'test', 'factory test');
 
@@ -35,32 +36,23 @@ exports.data = function(test) {
     // test is_message_data()
     test.ok(msg.is_message_data('command'), "command test");
     test.ok(! msg.is_message_data('_raw'));
-    test_func = function() { };
-    test.ok(! msg.is_message_data(test_func));
 
     test.done();
 };
 
 exports.json = function(test) {
     var msg = create_message({ command:'DATA', 'data':'boo-woo'});
-    var valid = '{"command":"DATA","data":"boo-woo","category":"test"}';
+    var valid = '{"command":"DATA","data":"boo-woo","automated":false,"category":"test","eventDate":"1970-01-01T00:00:00.100Z"}';
 
     test.equal(msg.toJSON(), valid, 'comparing json strings');
 
     var msg2 = new message.Message();
     msg2.parseJSON(msg.toJSON());
-    test.ok(msg.equal(msg2), 'comparing msg against msg.toJSON'); 
-
-    test.done();
-};
-
-exports.equal = function(test) {
-    var msg1 = create_message(),
-        msg2 = create_message(),
-        msg3 = create_message({ data: 'BOOT' });
-
-    test.ok(msg1.equal(msg2), 'Comparing msg1 against msg2');
-    test.ok(! msg1.equal(msg3), 'Comparing msg1 against msg3');
+    
+    var list = Array('data', 'category', 'automated');
+    list.forEach(function(i) {
+        test.equal(msg2[i], msg[i], 'comparing ' + i);
+    });
 
     test.done();
 };
