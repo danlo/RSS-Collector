@@ -24,7 +24,8 @@ See lib/message.js for message structure
 
 System Requirements:
 --------------------
-  node.js     @2.5    http://www.nodejs.org
-  redis       @2.0    http://redis.io/
-  nodeunit            - testing framework
+
+      node.js     @2.5    http://www.nodejs.org
+      redis       @2.0    http://redis.io/
+      nodeunit            - testing framework
 
