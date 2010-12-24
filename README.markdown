@@ -1,4 +1,4 @@
-Redis Study - Stats Collector
+Redis Study - RSS Collector
 =============================
 
 The goal of this project is to store stats and other informational messages in a 
@@ -13,6 +13,35 @@ The following methods of communication are to be accepted
         * Via Redis directly: pub-sub
         * Via HTTP POST/GET
         * More?
+
+
+Usage:
+------
+
+The ideal situation for this software is that you have a complicated internal network
+with firewalls, proxies, and lots of other stuff.  This code is to allow your software
+to post messages to an external service (RSS Collector) and then view them via your
+browser (cell phone, feed reader, etc..).
+
+Internal Structure:
+-------------------
+
+RSS Collector, is a basic publish subscribe model.  All received messages are published 
+into a Redis pub-sub channel.  RSS Collector also has a subscriber that will accept 
+published messages and put them in a redis list.
+
+Invocation:
+
+node index.js historian
+
+    Starts up the web RSS serivce on http://127.0.0.1:8124/
+    
+    Listens on a redis channel for new messages (see config.json)
+
+node index.js say "Woot woot"
+
+    Posts a message to the redis channel for consumption by any process including 
+    the above historian process.
 
 Data Structures:
 ----------------
