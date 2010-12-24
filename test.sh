@@ -1,5 +1,5 @@
 #!/bin/sh
-sh jslint.js
+sh jslint.sh
 
 node index.js historian &
 sleep 1

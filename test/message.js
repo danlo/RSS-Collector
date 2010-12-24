@@ -44,7 +44,7 @@ exports.data = function(test) {
 exports.json = function(test) {
     var msg = create_message({ command:'DATA', 'data':'boo-woo'});
     var valid = '{"command":"DATA","data":"boo-woo","category":"test"}';
-    
+
     test.equal(msg.toJSON(), valid, 'comparing json strings');
 
     var msg2 = new message.Message();
