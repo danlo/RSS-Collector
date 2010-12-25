@@ -51,11 +51,3 @@ The config.json holds the configuration information for Redis and the channels t
 The history_key is an array of "history_max_count" items.
 
 See lib/message.js for message structure
-
-System Requirements:
---------------------
-
-      node.js     @2.5    http://www.nodejs.org
-      redis       @2.0    http://redis.io/
-      nodeunit            - testing framework
-
