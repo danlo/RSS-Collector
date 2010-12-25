@@ -1,0 +1,37 @@
+{
+   "name":"RSS-Collector",
+   "description":"A service to accept small messages and provide them via an web url",
+   "version":"0.0.1",
+   "keywords":"rss web url post",
+   "license":"MIT License",
+   "maintainers":[
+      {
+         "name":"Daniel Lo",
+         "email":"wilburlo@gmail.com",
+         " web":"http://www.danlo.com"
+      }
+   ],
+   "bugs":"https://github.com/danlo/RSS-Collector/issues",
+   "licenses":[
+      {
+         "type":"MIT License",
+         "url":"https://github.com/danlo/RSS-Collector/blob/master/LICENSE.txt"
+      }
+   ],
+   "repositories":[
+      {
+         "type":"git",
+         "url":"https://github.com/danlo/RSS-Collector"
+      }
+   ],
+   "dependencies":{
+      "parseopt":"1.0.0",
+      "json":"2.0.1",
+      "nodeunit":"0.5.0",
+      "redis":"0.4.2",
+      "hiredis":"0.1.5"
+   },
+   "engine":[
+      "v8"
+   ]
+}
