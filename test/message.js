@@ -1,3 +1,8 @@
+/**
+ * @author wilburlo@gmail.com Daniel Lo
+ * @license MIT License. See LICENSE.txt
+ */
+
 var message = require('lib/message.js');
 var util = require('util');
 var pp = require('lib/util.js').pp;

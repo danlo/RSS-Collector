@@ -1,3 +1,8 @@
+/**
+ * @author wilburlo@gmail.com Daniel Lo
+ * @license MIT License. See LICENSE.txt
+ */
+
 // system libraries
 var fs = require('fs');
 
