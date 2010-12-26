@@ -14,7 +14,7 @@ http_server_input:
   # if this key is not present then messages will not
   # be accepted for processing.  A weak username/password
   key: "34adfascar23r"
-redis_config:
+redis_keys:
   # What channel to use for publishing messages on
   channel: "dlotest"
   # use this database
