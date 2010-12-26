@@ -9,7 +9,7 @@ var pp = require('lib/util.js').pp;
 
 function create_message(obj) {
     var msg = new message.Message();
-    msg.bulk_assign({ command: 'NOOP',
+    msg.bulk_assign({ command: message.NOOP,
         data: 'WOOT',
         automated: false,
         category: 'test',
