@@ -1,0 +1,31 @@
+# Configuration for RSS-Collector
+# Please becareful, the parser is a bit sensative.
+# Fully quote all strings.
+redis:
+  host: "127.0.0.1"
+  port: 6379
+http_server_rss:
+  host: "127.0.0.1"
+  port: 8124
+http_server_input:
+  host: "127.0.0.1"
+  port: 8125
+  # this is an required key to talk to the server
+  # if this key is not present then messages will not
+  # be accepted for processing.  A weak username/password
+  key: "34adfascar23r"
+redis_config:
+  # What channel to use for publishing messages on
+  channel: "dlotest"
+  # use this database
+  db_index: 0
+  # Store messages in this key name.  A redis LIST.
+  history_key: "dlotest_history"
+  # store the history for this duration 1 HOUR, if no messages in that time the whole
+  # list will vanish.
+  history_duration: 3600
+  # store this many "MAX" items in the history.
+  history_max_count: 30
+rss:
+  # What to title the RSS READER
+  title: "Message aggregator"
