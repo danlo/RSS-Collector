@@ -6,17 +6,10 @@
 // system libraries
 var fs = require('fs');
 var util = require('util');
-var yaml = require('yaml')
+
 // our own libraries
 var APP_MODULES = require(__dirname + '/lib');
-
-// load our configuration
-try {
-  var configYAML = fs.readFileSync(__dirname + '/config.yaml').toString();
-  var config = yaml.eval(configYAML);
-} catch(e) {
-  console.log("File /config.yaml not loadable");
-}
+var config = require(__dirname + '/lib/config').load(__dirname + '/config.yaml');
 
 // lets start the modules we need to start
 if ( process.argv[2] in APP_MODULES ) {
