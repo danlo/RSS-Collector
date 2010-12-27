@@ -17,9 +17,9 @@ exports.say = function(test) {
     // setup listener before hand
     var client = redis.createClient(config.redis.port, config.redis.host);
 
-    var fail_safe = setTimeout( function() { 
-        test.ok(false, "timeout called in test: say"); 
-        test.done(); 
+    var fail_safe = setTimeout( function() {
+        test.ok(false, "timeout called in test: say");
+        test.done();
     }, 2*1000 );
 
     // monitor for quit request
@@ -37,7 +37,7 @@ exports.say = function(test) {
     });
     client_monitor.on('connect', function() {
         client_monitor.subscribe(config.redis_keys.channel);
-        
+
         var APP_MODULES = require('lib/index.js'),
             service = APP_MODULES.say;
         service.config = config;

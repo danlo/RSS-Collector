@@ -17,10 +17,10 @@ exports.listener = function(test) {
     // setup listener before hand
     var APP_MODULES = require('lib/index.js'),
         service = APP_MODULES.listener;
-        
+
     service.config = config;
     service.run();
-    
+
     var redis = require('redis'),
         client = redis.createClient(config.redis.port, config.redis.host);
 

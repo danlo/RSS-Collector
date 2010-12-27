@@ -15,13 +15,13 @@ var message = require('lib/message.js'),
 
 exports.rss_server = function(test) {
     test.expect(1);
-    
-    // setup listener before hand
-    var client = redis.createClient(config.redis.port, config.redis.host); 
 
-    var fail_safe = setTimeout( function() { 
-        test.ok(false, "timeout called in test: rss_server"); 
-        test.done(); 
+    // setup listener before hand
+    var client = redis.createClient(config.redis.port, config.redis.host);
+
+    var fail_safe = setTimeout( function() {
+        test.ok(false, "timeout called in test: rss_server");
+        test.done();
     }, 2*1000 );
 
     var APP_MODULES = require('lib/index.js'),
@@ -32,7 +32,7 @@ exports.rss_server = function(test) {
 
     var request = require('request');
     request(
-        { uri:'http://' + config.http_server_rss.host + ':' + config.http_server_rss.port + '/' }, 
+        { uri:'http://' + config.http_server_rss.host + ':' + config.http_server_rss.port + '/' },
         function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 test.ok(true, 'message sent');

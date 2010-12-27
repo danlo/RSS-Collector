@@ -17,9 +17,9 @@ exports.accept_http_input = function(test) {
     // setup listener before hand
     var client = redis.createClient(config.redis.port, config.redis.host);
 
-    var fail_safe = setTimeout( function() { 
-        test.ok(false, "timeout called in test: accept_http_input2"); 
-        test.done(); 
+    var fail_safe = setTimeout( function() {
+        test.ok(false, "timeout called in test: accept_http_input2");
+        test.done();
     }, 2*1000 );
 
     var test_count = 2;
@@ -43,17 +43,17 @@ exports.accept_http_input = function(test) {
 
     client_monitor.on('connect', function() {
         client_monitor.subscribe(config.redis_keys.channel);
-        
+
         var request = require('request');
         request(
-            {uri:'http://' + config.http_server_input.host + ':' + config.http_server_input.port + '/command=DATA&data=this%20is%20a%20test2' }, 
+            {uri:'http://' + config.http_server_input.host + ':' + config.http_server_input.port + '/command=DATA&data=this%20is%20a%20test2' },
             function (error, response, body) {
                 test_count-=1;
                 if (!error && response.statusCode === 200) {
                     test.ok(true, 'message sent');
                 } else {
                     test.ok(false, 'message failed to send');
-                }                
+                }
             }
         );
     });
@@ -66,7 +66,7 @@ exports.accept_http_input = function(test) {
         } else {
             max_tries -= 1;
         }
-        
+
         if ( test_count === 0 ) {
             test.done();
             client_monitor.end();

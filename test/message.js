@@ -34,7 +34,7 @@ exports.factory = function(test) {
     test.expect(2);
     var msg = create_message({ category: 'test1'});
     test.equal(msg.category, 'test1', 'factory test');
-    
+
     var msg2 = new message.Message('{"command":"DEEP"}');
     test.equal(msg2.command, 'DEEP');
     test.done();
@@ -65,7 +65,7 @@ exports.json = function(test) {
 
     var msg2 = new message.Message();
     msg2.parseJSON(msg.toJSON());
-    
+
     var list = [ 'data', 'category', 'automated' ];
     list.forEach(function(i) {
         test.equal(msg2[i], msg[i], 'comparing ' + i);
