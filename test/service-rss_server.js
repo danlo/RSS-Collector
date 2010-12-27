@@ -11,6 +11,7 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.rss_server = function(test) {
@@ -24,8 +25,7 @@ exports.rss_server = function(test) {
         test.done();
     }, 2*1000 );
 
-    var APP_MODULES = require('lib/index.js'),
-        service = APP_MODULES.rss_server;
+    var service = new services.RSSServer();
 
     service.config = config;
     service.run();

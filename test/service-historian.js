@@ -11,6 +11,7 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.historian = function(test) {

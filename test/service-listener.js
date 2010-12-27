@@ -11,12 +11,12 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.listener = function(test) {
     // setup listener before hand
-    var APP_MODULES = require('lib/index.js'),
-        service = APP_MODULES.listener;
+    var service = new services.Listener();
 
     service.config = config;
     service.run();

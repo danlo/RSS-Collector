@@ -11,11 +11,11 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.dump = function(test) {
-    var APP_MODULES = require('lib/index.js');
-    var service = APP_MODULES.dump;
+    var service = new services.Dump();
     service.config = config;
     service.run();
     service.end();

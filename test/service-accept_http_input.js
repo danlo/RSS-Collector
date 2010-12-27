@@ -11,6 +11,7 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.accept_http_input = function(test) {
@@ -36,8 +37,7 @@ exports.accept_http_input = function(test) {
         }
     });
 
-    var APP_MODULES = require('lib/index.js');
-    var service = APP_MODULES.accept_http_input;
+    var service = new services.AcceptHTTPInput();
     service.config = config;
     service.run();
 

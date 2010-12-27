@@ -11,6 +11,7 @@ var message = require('lib/message.js'),
     util = require('util'),
     pp = require('lib/util.js').pp,
     fs = require('fs'),
+    services = require('lib/index.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.say = function(test) {
@@ -38,8 +39,7 @@ exports.say = function(test) {
     client_monitor.on('connect', function() {
         client_monitor.subscribe(config.redis_keys.channel);
 
-        var APP_MODULES = require('lib/index.js'),
-            service = APP_MODULES.say;
+        var service = new services.Say();
         service.config = config;
         service.run('this is a test');
         service.end();
