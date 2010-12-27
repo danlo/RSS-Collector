@@ -1,16 +1,17 @@
 /**
- * @author wilburlo@gmail.com Daniel Lo
- * @license MIT License. See LICENSE.txt
- */
+* @author wilburlo@gmail.com Daniel Lo
+* @license MIT License. See LICENSE.txt
+*/
+/*jslint devel: true, undef: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: true */
+/*global __dirname, require, setTimeout, clearTimeout */
+"use strict";
 
-var message = require('lib/message.js');
-var redis = require('redis');
-var util = require('util');
-var pp = require('lib/util.js').pp;
-var fs = require('fs');
-
-// load our configuration
-var config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
+var message = require('lib/message.js'),
+    redis = require('redis'),
+    util = require('util'),
+    pp = require('lib/util.js').pp,
+    fs = require('fs'),
+    config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.accept_http_input = function(test) {
     // setup listener before hand
@@ -29,9 +30,9 @@ exports.accept_http_input = function(test) {
     client_monitor.on('message', function(channel, new_message) {
         var msg = new message.Message();
         msg.parseJSON(new_message);
-        if ( msg.command != message.QUIT ) {
+        if ( msg.command !== message.QUIT ) {
             test.ok(true, 'message received');
-            test_count --;
+            test_count -= 1;
         }
     });
 
@@ -47,8 +48,8 @@ exports.accept_http_input = function(test) {
         request(
             {uri:'http://' + config.http_server_input.host + ':' + config.http_server_input.port + '/command=DATA&data=this%20is%20a%20test2' }, 
             function (error, response, body) {
-                test_count --;
-                if (!error && response.statusCode == 200) {
+                test_count-=1;
+                if (!error && response.statusCode === 200) {
                     test.ok(true, 'message sent');
                 } else {
                     test.ok(false, 'message failed to send');
@@ -60,8 +61,10 @@ exports.accept_http_input = function(test) {
     var max_tries = 20;
     var timer;
     var wait = function() {
-        if ( max_tries-- === 0) {
+        if ( max_tries === 0) {
             test_count = 0;
+        } else {
+            max_tries -= 1;
         }
         
         if ( test_count === 0 ) {

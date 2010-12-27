@@ -1,14 +1,17 @@
 /**
- * @author wilburlo@gmail.com Daniel Lo
- * @license MIT License. See LICENSE.txt
- */
+* @author wilburlo@gmail.com Daniel Lo
+* @license MIT License. See LICENSE.txt
+*/
+/*jslint devel: true, undef: true, eqeqeq: true, plusplus: true, bitwise: true, regexp: true, newcap: true, immed: true, strict: true */
+/*global __dirname, require, setTimeout, clearTimeout */
+"use strict";
 
-var message = require('lib/message.js');
-var redis = require('redis');
-var util = require('util');
-var pp = require('lib/util.js').pp;
-var fs = require('fs');
-var config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
+var message = require('lib/message.js'),
+    redis = require('redis'),
+    util = require('util'),
+    pp = require('lib/util.js').pp,
+    fs = require('fs'),
+    config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 exports.rss_server = function(test) {
     test.expect(1);
@@ -21,8 +24,9 @@ exports.rss_server = function(test) {
         test.done(); 
     }, 2*1000 );
 
-    var APP_MODULES = require('lib/index.js');
-    var service = APP_MODULES.rss_server;
+    var APP_MODULES = require('lib/index.js'),
+        service = APP_MODULES.rss_server;
+
     service.config = config;
     service.run();
 
@@ -30,7 +34,7 @@ exports.rss_server = function(test) {
     request(
         { uri:'http://' + config.http_server_rss.host + ':' + config.http_server_rss.port + '/' }, 
         function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 test.ok(true, 'message sent');
             } else {
                 test.ok(false, 'Error: (' + error + ') ' + response.statusCode);
