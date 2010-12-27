@@ -36,7 +36,7 @@ exports.say = function(test) {
         client_monitor.subscribe(config.redis_keys.channel);
         
         var APP_MODULES = require('lib/index.js');
-        service = APP_MODULES.say;
+        var service = APP_MODULES.say;
         service.config = config;
         service.run('this is a test');
         service.end();

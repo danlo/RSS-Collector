@@ -35,24 +35,23 @@ exports.accept_http_input = function(test) {
         }
     });
 
+    var APP_MODULES = require('lib/index.js');
+    var service = APP_MODULES.accept_http_input;
+    service.config = config;
+    service.run();
+
     client_monitor.on('connect', function() {
         client_monitor.subscribe(config.redis_keys.channel);
-        
-        var APP_MODULES = require('lib/index.js');
-        service = APP_MODULES.accept_http_input;
-        service.config = config;
-        service.run();
         
         var request = require('request');
         request(
             {uri:'http://' + config.http_server_input.host + ':' + config.http_server_input.port + '/command=DATA&data=this%20is%20a%20test2' }, 
             function (error, response, body) {
+                test_count --;
                 if (!error && response.statusCode == 200) {
                     test.ok(true, 'message sent');
-                    test_count --;
                 } else {
                     test.ok(false, 'message failed to send');
-                    test_count--;
                 }                
             }
         );

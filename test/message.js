@@ -8,22 +8,29 @@ var util = require('util');
 var pp = require('lib/util.js').pp;
 
 function create_message(obj) {
-    var msg = new message.Message();
-    msg.bulk_assign({ command: message.NOOP,
+    var msg = new message.Message({ command: message.NOOP,
         data: 'WOOT',
         automated: false,
         category: 'test',
         eventDate: new Date(100)
-    }).bulk_assign(obj);
+    });
+
+    if ( typeof obj == 'object' ) {
+        msg.bulk_assign(obj);
+    } else if ( typeof obj == 'string' ) {
+        msg.parseJSON(obj);
+    }
 
     return msg;
 }
 
 exports.factory = function(test) {
+    test.expect(2);
     var msg = create_message({ category: 'test1'});
-    
-    // test is_message_data()
     test.equal(msg.category, 'test1', 'factory test');
+    
+    var msg2 = new message.Message('{"command":"DEEP"}');
+    test.equal(msg2.command, 'DEEP');
     test.done();
 };
 

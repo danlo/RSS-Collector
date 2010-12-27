@@ -22,7 +22,7 @@ exports.rss_server = function(test) {
     }, 2*1000 );
 
     var APP_MODULES = require('lib/index.js');
-    service = APP_MODULES.rss_server;
+    var service = APP_MODULES.rss_server;
     service.config = config;
     service.run();
 

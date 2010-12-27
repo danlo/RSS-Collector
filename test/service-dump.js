@@ -12,7 +12,7 @@ var config = require(__dirname + '/../lib/config.js').load(__dirname + '/../conf
 
 exports.dump = function(test) {
     var APP_MODULES = require('lib/index.js');
-    service = APP_MODULES.dump;
+    var service = APP_MODULES.dump;
     service.config = config;
     service.run();
     service.end();

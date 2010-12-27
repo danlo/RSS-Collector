@@ -13,7 +13,7 @@ var config = require(__dirname + '/../lib/config.js').load(__dirname + '/../conf
 exports.listener = function(test) {
     // setup listener before hand
     var APP_MODULES = require('lib/index.js');
-    service = APP_MODULES.listener;
+    var service = APP_MODULES.listener;
     service.config = config;
     service.run();
     
