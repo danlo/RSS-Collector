@@ -10,3 +10,4 @@ for FILE in $FILES
 do
     nodeunit $FILE
 done
+sleep 3
