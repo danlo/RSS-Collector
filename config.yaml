@@ -15,15 +15,24 @@ http_server_input:
   # be accepted for processing.  A weak username/password
   key: "34adfascar23r"
 redis_keys:
-  # What channel to use for publishing messages on
+  # keys are joined together with this string
+  join: ":"
+  # key prefix, used to separate varius RSS feeds
+  prefix: "dlo"
+  # item prefix - used to store individual items:
+  # an a sample key would be:  prefix + join + item_prefix + join + item.guid
+  item_prefix: "item"
+  # The seconds that an item will expire after
+  item_expiration: 3600
+  # Channel to use for publishing messages on: prefix + join + channel
   channel: "dlotest"
   # use this database
   db_index: 0
-  # Store messages in this key name.  A redis LIST.
+  # key name to store the history in.  A redis LIST: prefix + join + history_key
   history_key: "dlotest_history"
   # store the history for this duration 1 HOUR, if no messages in that time the whole
   # list will vanish.
-  history_duration: 3600
+  history_key_duration: 3600
   # store this many "MAX" items in the history.
   history_max_count: 30
 rss:
