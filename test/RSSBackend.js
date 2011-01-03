@@ -15,7 +15,9 @@ var message = require('lib/message.js'),
     config = require(__dirname + '/../lib/config.js').load(__dirname + '/../config.yaml');
 
 function createBackend() {
-    return new backend.RSSBackend(config);
+    var c2 = config.copy();
+    c2.redis_keys.prefix = Math.floor(Math.random()*1000000000000000);
+    return new backend.RSSBackend(c2);
 }
 
 exports.factory = function(test) {
@@ -33,13 +35,13 @@ exports.make_key = function(test) {
     var parts = [];
 
     // test itemKey, makeKey
-    parts.push(config.redis_keys.prefix);
-    parts.push(config.redis_keys.item_prefix);
+    parts.push(backend.config.redis_keys.prefix);
+    parts.push(backend.config.redis_keys.item_prefix);
     parts.push(guid);
-    keyMake = parts.join(config.redis_keys.join);
+    keyMake = parts.join(backend.config.redis_keys.join);
     test.equals(keyMake, backend.itemKey(guid));
     
-    test.equals(keyMake, backend.makeKey(config.redis_keys.item_prefix, guid));
+    test.equals(keyMake, backend.makeKey(backend.config.redis_keys.item_prefix, guid));
     
     test.equals(keyMake, backend.makeKey('item_prefix', guid));
     
@@ -48,9 +50,9 @@ exports.make_key = function(test) {
 
     // test configKey, historyKey
     parts = [];
-    parts.push(config.redis_keys.prefix);
-    parts.push(config.redis_keys.history_key);
-    keyMake = parts.join(config.redis_keys.join);
+    parts.push(backend.config.redis_keys.prefix);
+    parts.push(backend.config.redis_keys.history_key);
+    keyMake = parts.join(backend.config.redis_keys.join);
     test.equals(keyMake, backend.makeKey('history_key'));
     test.equals(keyMake, backend.historyKey());
 
@@ -77,14 +79,48 @@ exports.crud = function(test) {
     var guid = '12345',
         msg = new message.Message( { 'guid': guid, category: 'testing' } );
 
-    backend.setItem(msg, function() {
-        var msg2 = backend.getItem(guid, function() {
+    backend.set(msg, function() {
+        var msg2 = backend.get(guid, function() {
             test.equals(msg.guid, msg2.guid);
         });
     });
 
     backend.end();
     test.done();
+};
+
+exports.crud = function(test) {
+    var backend = createBackend();
+    
+    var msg = new message.Message( { 'guid': '12345', category: 'testing' } );
+
+    backend.set(msg, function(status) {
+        backend.get(msg , function(err, msg2) {
+            test.equals(msg.guid, msg2.guid);
+
+            backend.del(msg);
+            backend.end();
+            test.done();
+        });
+    });
+};
+
+exports.crud2 = function(test) {
+    var backend = createBackend();
+    
+    var msg = new message.Message( { 'guid': '62453', category: 'testing' } );
+    
+    backend.set(msg, function(status) {
+        backend.getAll(function(err, msgs) {
+            if (msgs.length > 0) {
+                test.equals(msgs[0].guid, msg.guid);
+            } else {
+                test.ok(false, 'no msgs passed in');
+            }
+            test.done();
+            backend.end();
+        });
+    });
 };
 
 exports.basic = function(test) {
