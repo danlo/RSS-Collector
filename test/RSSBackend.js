@@ -20,74 +20,74 @@ function createBackend() {
     return new backend.RSSBackend(c2);
 }
 
-// exports.factory = function(test) {
-//     test.expect(1);
-//     test.ok(typeof createBackend() == 'object');
-//     test.done();
-// };
-// 
-// exports.make_key = function(test) {
-//     var backend = createBackend();
-// 
-//     var keyMake,
-//         guid = "12345";
-//     
-//     var parts = [];
-// 
-//     // test itemKey, makeKey
-//     parts.push(backend.config.redis_keys.prefix);
-//     parts.push(backend.config.redis_keys.item_prefix);
-//     parts.push(guid);
-//     keyMake = parts.join(backend.config.redis_keys.join);
-//     test.equals(keyMake, backend.itemKey(guid));
-//     
-//     test.equals(keyMake, backend.makeKey(backend.config.redis_keys.item_prefix, guid));
-//     
-//     test.equals(keyMake, backend.makeKey('item_prefix', guid));
-//     
-//     var msg = new message.Message({ 'guid': guid });
-//     test.equals(keyMake, backend.itemKey(msg));
-// 
-//     // test configKey, historyKey
-//     parts = [];
-//     parts.push(backend.config.redis_keys.prefix);
-//     parts.push(backend.config.redis_keys.history_key);
-//     keyMake = parts.join(backend.config.redis_keys.join);
-//     test.equals(keyMake, backend.makeKey('history_key'));
-//     test.equals(keyMake, backend.historyKey());
-// 
-//     backend.end();
-//     test.done();
-// };
+exports.factory = function(test) {
+    test.expect(1);
+    test.ok(typeof createBackend() == 'object');
+    test.done();
+};
 
-// exports.connection = function(test) {
-//     var backend = createBackend();
-//     
-//     backend.setConnection('wee');
-//     test.equals(backend.getConnection(), 'wee');
-//     
-//     backend.setConnection(undefined);
-//     test.ok(typeof backend.getConnection() === 'object');
-//     
-//     backend.end();
-//     test.done();
-// };
+exports.make_key = function(test) {
+    var backend = createBackend();
 
-// exports.crud = function(test) {
-//     var backend = createBackend();
-//     
-//     var guid = '12345',
-//         msg = new message.Message( { 'guid': guid, category: 'testing' } );
-// 
-//     backend.set(msg, function() {
-//         var msg2 = backend.get(guid, function() {
-//             test.equals(msg.guid, msg2.guid);
-//         });
-//     });
-// 
-//     backend.end();
-//     test.done();
-// };
+    var keyMake,
+        guid = "12345";
+    
+    var parts = [];
+
+    // test itemKey, makeKey
+    parts.push(backend.config.redis_keys.prefix);
+    parts.push(backend.config.redis_keys.item_prefix);
+    parts.push(guid);
+    keyMake = parts.join(backend.config.redis_keys.join);
+    test.equals(keyMake, backend.itemKey(guid));
+    
+    test.equals(keyMake, backend.makeKey(backend.config.redis_keys.item_prefix, guid));
+    
+    test.equals(keyMake, backend.makeKey('item_prefix', guid));
+    
+    var msg = new message.Message({ 'guid': guid });
+    test.equals(keyMake, backend.itemKey(msg));
+
+    // test configKey, historyKey
+    parts = [];
+    parts.push(backend.config.redis_keys.prefix);
+    parts.push(backend.config.redis_keys.history_key);
+    keyMake = parts.join(backend.config.redis_keys.join);
+    test.equals(keyMake, backend.makeKey('history_key'));
+    test.equals(keyMake, backend.historyKey());
+
+    backend.end();
+    test.done();
+};
+
+exports.connection = function(test) {
+    var backend = createBackend();
+    
+    backend.setConnection('wee');
+    test.equals(backend.getConnection(), 'wee');
+    
+    backend.setConnection(undefined);
+    test.ok(typeof backend.getConnection() === 'object');
+    
+    backend.end();
+    test.done();
+};
+
+exports.crud = function(test) {
+    var backend = createBackend();
+    
+    var guid = '12345',
+        msg = new message.Message( { 'guid': guid, category: 'testing' } );
+
+    backend.set(msg, function() {
+        var msg2 = backend.get(guid, function() {
+            test.equals(msg.guid, msg2.guid);
+        });
+    });
+
+    backend.end();
+    test.done();
+};
 
 exports.crud2 = function(test) {
     var backend = createBackend();
@@ -95,7 +95,7 @@ exports.crud2 = function(test) {
     var msg = new message.Message( { 'guid': '62453', category: 'testing' } );
     
     backend.set(msg, function() {
-        backend.getAll(function(err, msgs) {
+        backend.getAll(function(msgs) {
             if (msgs.length > 0) {
                 test.equals(msgs[0].guid, msg.guid);
             } else {
