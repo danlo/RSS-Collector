@@ -22,7 +22,7 @@ function createBackend() {
 
 exports.factory = function(test) {
     test.expect(1);
-    test.ok(typeof createBackend() == 'object');
+    test.ok(typeof createBackend() === 'object');
     test.done();
 };
 
